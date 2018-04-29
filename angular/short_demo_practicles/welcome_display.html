@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<body>
+		<div ng-app="myApp" ng-controller="myCtrl"> 
+			
+			{{welcome_message}}
+
+		</div>
+		
+		
+		<script>
+			var app = angular.module("myApp", []);
+			app.controller('myCtrl',function ($scope, $http) {
+				
+				$http.get('file:///D:/angular/welcome_data.htm')
+				.then (function (response) { 
+					$scope.welcome_message = response.data;
+				});
+			});
+		</script>
+	</body>
+</html>

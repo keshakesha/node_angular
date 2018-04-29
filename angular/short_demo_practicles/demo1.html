@@ -1,0 +1,30 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<body>
+		<div ng-app="" ng-init="first_name='kesha kapadia'">
+			<p>This is my 1st Demo</p>
+			<p>
+				Name : <input type="text" ng-model="name" placeholder="Enter Text please">
+			</p>
+			<h1>Name is {{name}}</h1>
+			<br><br>
+			===================================================================================
+			<br><br>
+			<span>Initiallization with curly braces : {{first_name}}</span>
+			<br><br>
+			===================================================================================
+			<br><br>
+			<span>With Bind Data : <span ng-bind="first_name"> </span></span>
+			<br><br>
+			===================================================================================
+			<br><br>
+			<p>Expression :  {{5 + 5}}</p>
+			
+			
+			
+			
+			
+			
+		</div>
+	</body>
+</html>

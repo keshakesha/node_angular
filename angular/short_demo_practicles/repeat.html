@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<body>
+<!--<div ng-app="" ng-init="names1=['hello 1', 'hello 2', 'hello 3']">
+	<ul>
+		<li ng-repeat="x in names1">
+			{{ x }}
+		</li>
+	</ul>	
+</div> -->	
+
+<div ng-app="" ng-init="names=[
+				{name:'hello 1', country : 'IND'},
+				{name:'hello 2', country : 'US'},
+				{name:'hello 3', country : 'CAD'},
+				]">
+	<ul>
+		<li ng-repeat="x in names">
+			{{ x.name + " == " + x.country }}
+		</li>
+	</ul>	
+</div>
+
+</body>
+</html>

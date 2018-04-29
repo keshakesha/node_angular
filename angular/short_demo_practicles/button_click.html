@@ -1,0 +1,33 @@
+<html>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<body>		
+		<div ng-app="MyApp">
+		
+			<div ng-controller="language">
+				Select Language Button : 
+					<button ng-click = "php()" >PHP</button>
+					<button ng-click = "java()" >JAVA</button>
+				<p>You have selected: {{ selected_button }}</p>
+			</div>
+		</div>
+
+	<script>
+		var application = angular.module('MyApp', []);
+		application.controller('language',function ($scope) {
+			
+			$scope.selected_button = 'None';
+			$scope.php = function () {
+				$scope.selected_button = 'PHP Click Event';
+			}
+			
+			$scope.java = function () {
+				$scope.selected_button = 'Java Click Event';
+			}
+			
+			
+		});
+		
+	</script>
+		
+	</body>
+</html>
