@@ -1,0 +1,53 @@
+<h1>
+  {{title}}
+</h1>
+<br>
+<a *ngFor="let item of starList; let i=index " (click)="setStar(i)">
+  <i class="fa" [ngClass]="{'fa-star-o':item,'fa-star':!item}"></i>
+</a>
+<br> Rating :- {{rating}} stars
+
+<table border=1>
+  <caption>Frameworks Rating</caption>
+  <tr>
+    <td>Id</td>
+    <td>Framework Name</td>
+    <td>Rating</td>
+  </tr>
+  <tr *ngFor="let record of recordList">
+    <td>{{record.Id}}</td>
+    <td>{{record.Framework}}</td>
+    <td>
+      <a *ngFor="let item1 of record.myList; let i=index " (click)="setStarTable(record,i)">
+        <i class="fa" [ngClass]="{'fa-star-o':item1,'fa-star':!item1}"></i>
+      </a>
+    </td>
+  </tr>
+</table>
+
+<table border=1>
+  <caption>Frameworks Rating</caption>
+  <tr>
+    <td>Id</td>
+    <td>Framework Name</td>
+    <td>Rating</td>
+  </tr>
+  <tr *ngFor="let record of recordList">
+    <td>{{record.Id}}</td>
+    <td>{{record.Framework}}</td>
+    <td>
+      <a *ngFor="let item1 of record.myList; let i=index; ">
+          <!-- {{record.count + " == "}} {{i}} -->
+          <div *ngIf="i <= record.count; then truthyTemplate else falsyTemplate"></div>
+       
+          <ng-template #truthyTemplate >
+            <i class="fa fa-star"></i>
+          </ng-template>
+           
+          <ng-template #falsyTemplate>
+              <i class="fa fa-star-o"></i>
+          </ng-template>
+      </a>
+    </td>
+  </tr>
+</table>
