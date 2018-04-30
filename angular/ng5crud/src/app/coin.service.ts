@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Router } from "@angular/router";
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CoinService {
 
   result: any;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   addCoin(name, price) {
     const uri = 'http://localhost:4000/coins/add';
@@ -19,28 +20,34 @@ export class CoinService {
     this
       .http
       .post(uri, obj)
-      .subscribe(res =>
-          console.log('Done'));
+      // .subscribe(res =>
+      //     console.log('Done'));
+      .subscribe(data => {
+        if (data['coin'] == 'success')
+          this.router.navigate(['/']);
+        else
+          this.router.navigate(['/create']);
+      })
   }
 
   getCoins() {
     const uri = 'http://localhost:4000/coins';
     return this
-            .http
-            .get(uri)
-            .map(res => {
-              return res;
-            });
+      .http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
   }
 
   editCoin(id) {
     const uri = 'http://localhost:4000/coins/edit/' + id;
     return this
-            .http
-            .get(uri)
-            .map(res => {
-              return res;
-            });
+      .http
+      .get(uri)
+      .map(res => {
+        return res;
+      });
   }
 
   updateCoin(name, price, id) {
@@ -53,17 +60,26 @@ export class CoinService {
     this
       .http
       .post(uri, obj)
-      .subscribe(res => console.log('Done'));
+      .subscribe(data => {
+        console.log(data[0]);
+        if (data['coin'] == 'success')
+          this.router.navigate(['/']);
+        else
+          this.router.navigate(['/edit/' + id]);
+      })
   }
 
   deleteCoin(id) {
     const uri = 'http://localhost:4000/coins/delete/' + id;
 
-        return this
-            .http
-            .get(uri)
-            .map(res => {
-              return res;
-            });
+    return this
+      .http
+      .get(uri)
+      .map(res => {
+        // console.log(res);
+        // if (res['coin'] == 'success')
+          // this.router.navigate(['/']);
+        return res;
+      });
   }
 }

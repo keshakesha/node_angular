@@ -2,6 +2,7 @@ import { CoinService } from './../../coin.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-index',
@@ -12,7 +13,7 @@ export class IndexComponent implements OnInit {
 
   coins: any;
 
-  constructor(private http: HttpClient, private service: CoinService) {}
+  constructor(private http: HttpClient, private service: CoinService, private router: Router) {}
 
   ngOnInit() {
     this.getCoins();
@@ -23,4 +24,14 @@ export class IndexComponent implements OnInit {
       this.coins = res;
     });
   }
+
+  deleteCoin(id) {
+    this.service.deleteCoin(id).subscribe(res => {
+      console.log('Deleted');
+      this.getCoins();
+    });
+  }
+
+
+
 }

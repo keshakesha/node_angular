@@ -13,20 +13,20 @@ coinRoutes.route('/add').post(function (req, res) {
   var coin = new Coin(req.body);
   console.log(req.body);
 
-   coin.save()
+  coin.save()
     .then(item => {
-    res.status(200).json({'coin': 'Coin added successfully'});
+      res.status(200).json({ 'coin': 'success' });
     })
     .catch(err => {
       console.log(err);
-    res.status(400).send("unable to save to database");
+      res.status(400).send("unable to save to database");
     });
 });
 
 // Defined get data(index or listing) route
 coinRoutes.route('/').get(function (req, res) {
-   Coin.find(function (err, coins){
-    if(err){
+  Coin.find(function (err, coins) {
+    if (err) {
       console.log(err);
     }
     else {
@@ -38,14 +38,14 @@ coinRoutes.route('/').get(function (req, res) {
 // Defined edit route
 coinRoutes.route('/edit/:id').get(function (req, res) {
   var id = req.params.id;
-  Coin.findById(id, function (err, coin){
-      res.json(coin);
+  Coin.findById(id, function (err, coin) {
+    res.json(coin);
   });
 });
 
 //  Defined update route
 coinRoutes.route('/update/:id').post(function (req, res) {
-   Coin.findById(req.params.id, function(err, coin) {
+  Coin.findById(req.params.id, function (err, coin) {
     if (!coin)
       return next(new Error('Could not load Document'));
     else {
@@ -53,21 +53,25 @@ coinRoutes.route('/update/:id').post(function (req, res) {
       coin.price = req.body.price;
 
       coin.save().then(coin => {
-          res.json('Update complete');
+        // res.status(200).json({ 'coin': 'success' });
+        // res.json('success');
+        res.json({ 'coin': 'success' });
       })
-      .catch(err => {
-            res.status(400).send("unable to update the database");
-      });
+        .catch(err => {
+          res.status(400).send("unable to update the database");
+        });
     }
   });
 });
 
 // Defined delete | remove | destroy route
 coinRoutes.route('/delete/:id').get(function (req, res) {
-   Coin.findByIdAndRemove({_id: req.params.id}, function(err, coin){
-        if(err) res.json(err);
-        else res.json('Successfully removed');
-    });
+  Coin.findByIdAndRemove({ _id: req.params.id }, function (err, coin) {
+    if (err)
+      res.json(err);
+    else
+      res.json({ 'coin': 'success' });
+  });
 });
 
 module.exports = coinRoutes;

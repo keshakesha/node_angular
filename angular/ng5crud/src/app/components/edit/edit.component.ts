@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoinService } from './../../coin.service';
-import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-edit',
@@ -15,21 +15,21 @@ export class EditComponent implements OnInit {
   title = 'Edit Coin';
   constructor(private route: ActivatedRoute, private router: Router, private service: CoinService, private fb: FormBuilder) {
     this.createForm();
-   }
+  }
 
   createForm() {
     this.angForm = this.fb.group({
-      name: ['', Validators.required ],
-      price: ['', Validators.required ]
-   });
+      name: ['', Validators.required],
+      price: ['', Validators.required]
+    });
   }
 
   updateCoin(name, price) {
     this.route.params.subscribe(params => {
-    this.service.updateCoin(name, price, params['id']);
-    this.router.navigate(['index']);
-  });
-}
+      this.service.updateCoin(name, price, params['id']);
+      // this.router.navigate(['/']);
+    });
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
