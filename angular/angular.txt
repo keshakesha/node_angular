@@ -22,3 +22,12 @@ https://www.primefaces.org/primeng/#/rating
 
 
 
+NODE_PORT=3200
+DATABASE=mongodb://127.0.0.1:27017/clique
+ACCESS_TOKEN_SECRET_KEY=clique_lab_jwt_token
+REFRESH_TOKEN_SECRET_KEY=clique_lab_jwt_refresh_token,
+WEBSITE_URL=http://localhost:8080
+BASE=http://localhost
+
+STRIPE_KEY=pk_test_l6m4grHKqJhyiKwecUkSpNrA
+STRIPE_SECRET_KEY=sk_test_21xUhy7NMHdXrCR6xiswvPBA
