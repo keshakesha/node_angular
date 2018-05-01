@@ -1,3 +1,24 @@
+Install node + express + diff. other modules
+npm install --save express body-parser morgan body-parser serve-favicon
 
+
+
+Projects:
+https://github.com/ar-narola/greego
+
+https://github.com/hidnarola/clique-lab-api
+
+
+References : 
 1. Bootstrap design
 https://coursetro.com/posts/code/132/Material-Design-Bootstrap-4-and-Angular-5-Tutorial---MdBootstrap
+
+
+https://material.angular.io/
+
+https://www.primefaces.org/primeng/#/rating
+
+
+
+
+

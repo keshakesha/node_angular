@@ -11,23 +11,10 @@ export class CoinService {
   result: any;
   constructor(private http: HttpClient, private router: Router) { }
 
-  addCoin(name, price) {
+  addCoin(data) {
+    console.log()
     const uri = 'http://localhost:4000/coins/add';
-    const obj = {
-      name: name,
-      price: price
-    };
-    this
-      .http
-      .post(uri, obj)
-      // .subscribe(res =>
-      //     console.log('Done'));
-      .subscribe(data => {
-        if (data['coin'] == 'success')
-          this.router.navigate(['/']);
-        else
-          this.router.navigate(['/create']);
-      })
+    return this.http.post(uri, data);
   }
 
   getCoins() {
@@ -78,7 +65,7 @@ export class CoinService {
       .map(res => {
         // console.log(res);
         // if (res['coin'] == 'success')
-          // this.router.navigate(['/']);
+        // this.router.navigate(['/']);
         return res;
       });
   }

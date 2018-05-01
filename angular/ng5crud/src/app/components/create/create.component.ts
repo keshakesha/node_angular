@@ -12,8 +12,10 @@ export class CreateComponent implements OnInit {
 
   title = 'Add Coin';
   angForm: FormGroup;
+  public formdata;
   constructor(private coinservice: CoinService, private fb: FormBuilder, private router: Router) {
     this.createForm();
+    this.formdata = {};
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -22,7 +24,17 @@ export class CreateComponent implements OnInit {
     });
   }
   addCoin(name, price) {
-    var response = this.coinservice.addCoin(name, price);
+    this.coinservice.addCoin(this.formdata).subscribe(data => {
+      if (data['coin'] == 'success')
+        this.router.navigate(['/']);
+      else
+        this.router.navigate(['/create']);
+    },
+      err => {
+
+      }
+    )
+      ;
     // this.coinservice.getCoins().subscribe(res => {});
   }
   ngOnInit() {
