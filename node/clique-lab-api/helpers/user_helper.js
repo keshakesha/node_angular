@@ -10,16 +10,17 @@ var user_helper = {};
  */
 user_helper.get_all_user = async () => {
     try {
-        var users = await User.find({ status: true }, { "first_name": 1,  });
+        var users = await User.find({ "status": true }, {});
+        console.log(users);
         if (users && users.length > 0) {
-            return { "status": 1, "message": "Users found", "users": users };
+            return { "status": 1, "message": "users found", "users": users };
         } else {
-            return { "status": 2, "message": "No user found" };
+            return { "status": 2, "message": "users not found" };
         }
     } catch (err) {
-        return { "status": 0, "message": "Error occured while finding Brand", "error": err }
+        return { "status": 0, "message": "Error occured while finding users", "error": err }
     }
-};
+}
 
 /*
  * get_user_by_id is used to fetch user details by user id

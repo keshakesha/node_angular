@@ -47,10 +47,10 @@ router.post('/user_signup', async (req, res) => {
             notEmpty: true,
             errorMessage: "Phone Number is required"
         },
-        'faculty': {
-            notEmpty: true,
-            errorMessage: "Faculty is required"
-        }
+        // 'faculty': {
+        //     notEmpty: true,
+        //     errorMessage: "Faculty is required"
+        // }
     };
     req.checkBody(schema);
     var errors = req.validationErrors();
@@ -77,7 +77,7 @@ router.post('/user_signup', async (req, res) => {
                 res.status(config.INTERNAL_SERVER_ERROR).json(user_data);
             } else {
                 logger.trace("user has been inserted");
-                res.status(config.OK_STATUS).json({ "status": 1, "message": "user registered successfully" });
+                res.status(config.OK_STATUS).json({ "status": 1, "message": "success" });
             }
 
         } else {
@@ -90,9 +90,15 @@ router.post('/user_signup', async (req, res) => {
 });
 
 router.get('/index', async (req, res) => {
-    console.log("index called");
-    res.render('index', { title: 'Express' });
-    res.status(config.OK_STATUS).json({ "status": 1, "message": "user registered successfully" });
+    logger.trace("Get all users API called");
+    var resp_data = await user_helper.get_all_user();
+    if (resp_data.status == 0) {
+        logger.error("Error occured while fetching Users = ", resp_data);
+        res.status(config.INTERNAL_SERVER_ERROR).json(resp_data);
+    } else {
+        logger.trace("Users got successfully = ", resp_data);
+        res.status(config.OK_STATUS).json(resp_data);
+    }
 
 });
 

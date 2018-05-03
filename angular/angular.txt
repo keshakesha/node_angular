@@ -2,6 +2,23 @@ Install node + express + diff. other modules
 npm install --save express body-parser morgan body-parser serve-favicon
 
 
+Database Schema: 
+http://mongoosejs.com/docs/schematypes.html
+
+Mongoose Database Query:
+
+let transaction_data = await transaction.save();
+let campaign_user_data = await Campaign_User.insertMany(campaign_user_array);
+let resp = await Campaign.findOneAndRemove({ _id: campaign_id });
+let del_resp = await Cart.deleteMany({ "promoter_id": new ObjectId(promoter_id) });
+var countries = await country.find({"status" : true},{"name":1});
+var user = await User.findOne({ "email": email }).lean();
+let transaction = await Transaction.findOneAndUpdate({ "_id": new ObjectId(transaction_id) }, obj);
+
+
+angular Form Validaion 
+	https://dzone.com/articles/implement-validations-in-angular-5-app
+
 
 Projects:
 https://github.com/ar-narola/greego
