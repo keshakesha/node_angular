@@ -6,6 +6,8 @@ import { EditComponent } from './components/edit/edit.component';
 import { IndexComponent } from './components/index/index.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { DialogContentComponent } from './dialog-content/dialog-content.component';
+import { ItemListComponent } from './item-list/item-list.component';
+import { DatatableListComponent } from './datatable-list/datatable-list.component';
 
 export const appRoutes: Routes = [
   {
@@ -27,5 +29,13 @@ export const appRoutes: Routes = [
   {
     path: 'dialog',
     component: DialogContentComponent
-  }
+  },
+  {
+    path: 'item_list',
+    component: ItemListComponent
+  },
+  {
+    path: 'datatable_list',
+    component: DatatableListComponent
+  },
 ];

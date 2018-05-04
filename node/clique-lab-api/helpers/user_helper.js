@@ -125,47 +125,19 @@ user_helper.update_user_by_id = async (user_id, user_object) => {
  *          status 1 - If user data found, with user's documents
  *          status 2 - If user not found, with appropriate message
  */
-user_helper.get_filtered_user = async (page_no, page_size, filter, sort) => {
+// user_helper.get_filtered_user = async (page_no, page_size, filter, sort) => {
+user_helper.get_filtered_user = async (page_no, serach) => {
+    page_size = 2;
+    console.log("==> " + page_no);
     try {
-        var aggregate = [];
-        if (filter) {
-            aggregate.push({ "$match": filter });
-        }
-        if (sort) {
-            aggregate.push({ "$sort": sort });
-        }
-
-        aggregate.push({
-            "$group": {
-                "_id": null,
-                "total": { "$sum": 1 },
-                'results': { "$push": '$$ROOT' }
-            }
-        });
-
-        if (page_size && page_no) {
-            aggregate.push({
-                "$project": {
-                    "total": 1,
-                    'users': { "$slice": ["$results", page_size * (page_no - 1), page_size] }
-                }
-            });
+        skip = page_size * (page_no - 1)
+        if (serach != '') {
+            let users = await User.find({ first_name: /^serach/ }).limit(page_size).skip(skip);
         } else {
-            aggregate.push({
-                "$project": {
-                    "total": 1,
-                    'users': "$results"
-                }
-            });
+            let users = await User.find().limit(page_size).skip(skip);
         }
-
-        // aggregate.push({ "$skip": page_size * (page_no - 1) });
-        // aggregate.push({ "$limit": page_size });
-
-        var users = await User.aggregate(aggregate);
-
-        if (users && users[0] && users[0].users.length > 0) {
-            return { "status": 1, "message": "Users found", "results": users[0] };
+        if (users && users.length > 0) {
+            return { "status": 1, "message": "Users found", "results": users };
         } else {
             return { "status": 2, "message": "No user found" };
         }
@@ -173,5 +145,34 @@ user_helper.get_filtered_user = async (page_no, page_size, filter, sort) => {
         return { "status": 0, "message": "Error occured while finding user", "error": err }
     }
 };
+
+
+user_helper.delete_user_by_id = async (user_id) => {
+    try {
+        let resp = await User.findOneAndRemove({ _id: user_id });
+        if (!resp) {
+            return { "status": 2, "message": "User not found" };
+        } else {
+            // Delete all data related to campaign
+            return { "status": 1, "message": "success", "resp": resp };
+        }
+    } catch (err) {
+        return { "status": 0, "message": "Error occured while deleting campaign", "error": err };
+    }
+}
+
+user_helper.user_count = async () => {
+    try {
+        let resp = await User.count();
+        if (!resp) {
+            return { "status": 2, "message": "User not found" };
+        } else {
+            // Delete all data related to user
+            return { "status": 1, "message": "success", "resp": resp };
+        }
+    } catch (err) {
+        return { "status": 0, "message": "Error occured while deleting user", "error": err };
+    }
+}
 
 module.exports = user_helper;

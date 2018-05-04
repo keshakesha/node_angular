@@ -1,6 +1,11 @@
 Install node + express + diff. other modules
 npm install --save express body-parser morgan body-parser serve-favicon
 
+Pagination - Data table
+https://github.com/ggmod/angular-5-data-table
+data table: https://l-lin.github.io/angular-datatables/#/getting-started
+npm install --save jquery @types/jquery
+
 
 Database Schema: 
 http://mongoosejs.com/docs/schematypes.html

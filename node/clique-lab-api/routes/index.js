@@ -89,9 +89,10 @@ router.post('/user_signup', async (req, res) => {
     }
 });
 
-router.get('/index', async (req, res) => {
+router.get('/index/:page_no/:serach', async (req, res) => {
     logger.trace("Get all users API called");
-    var resp_data = await user_helper.get_all_user();
+    // var resp_data = await user_helper.get_all_user();
+    var resp_data = await user_helper.get_filtered_user(req.params.page_no, req.params.serach);
     if (resp_data.status == 0) {
         logger.error("Error occured while fetching Users = ", resp_data);
         res.status(config.INTERNAL_SERVER_ERROR).json(resp_data);
@@ -99,7 +100,33 @@ router.get('/index', async (req, res) => {
         logger.trace("Users got successfully = ", resp_data);
         res.status(config.OK_STATUS).json(resp_data);
     }
+});
 
+router.get('/user_count', async (req, res) => {
+    logger.trace("Get all users count API called");
+    // var resp_data = await user_helper.get_all_user();
+    var resp_data = await user_helper.user_count();
+    if (resp_data.status == 0) {
+        logger.error("Error occured while fetching Users = ", resp_data);
+        res.status(config.INTERNAL_SERVER_ERROR).json(resp_data);
+    } else {
+        logger.trace("Users count successfully = ", resp_data);
+        res.status(config.OK_STATUS).json(resp_data);
+    }
+});
+
+/**
+ * Delete user by id  
+ */
+router.delete('/:user_id', async (req, res) => {
+    var user_resp = await user_helper.delete_user_by_id(req.params.user_id);
+    if (user_resp.status === 0) {
+        res.status(config.INTERNAL_SERVER_ERROR).json({ "status": 0, "message": "Error occured while deleting user", "error": user_resp.error });
+    } else if (user_resp.status === 2) {
+        res.status(config.BAD_REQUEST).json({ "status": 0, "message": "Can't delete user" });
+    } else {
+        res.status(config.OK_STATUS).json({ "status": 1, "message": "User has been deleted" });
+    }
 });
 
 module.exports = router;
